@@ -1,0 +1,232 @@
+[
+  {
+    "key": "google",
+    "url": "https://www.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "drive",
+    "url": "https://drive.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "docs",
+    "url": "https://docs.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "sheets",
+    "url": "https://sheets.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "gmail",
+    "url": "https://mail.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "calendar",
+    "url": "https://calendar.google.com",
+    "category": "tools"
+  },
+  {
+    "key": "canva",
+    "url": "https://www.canva.com",
+    "category": "tools"
+  },
+  {
+    "key": "notion",
+    "url": "https://www.notion.so",
+    "category": "tools"
+  },
+  {
+    "key": "trello",
+    "url": "https://trello.com",
+    "category": "tools"
+  },
+  {
+    "key": "figma",
+    "url": "https://www.figma.com",
+    "category": "tools"
+  },
+  {
+    "key": "miro",
+    "url": "https://miro.com",
+    "category": "tools"
+  },
+  {
+    "key": "gfg",
+    "url": "https://www.geeksforgeeks.org",
+    "category": "coding"
+  },
+  {
+    "key": "github",
+    "url": "https://github.com",
+    "category": "coding"
+  },
+  {
+    "key": "gitlab",
+    "url": "https://gitlab.com",
+    "category": "coding"
+  },
+  {
+    "key": "leetcode",
+    "url": "https://leetcode.com",
+    "category": "coding"
+  },
+  {
+    "key": "hackerrank",
+    "url": "https://www.hackerrank.com",
+    "category": "coding"
+  },
+  {
+    "key": "codepen",
+    "url": "https://codepen.io",
+    "category": "coding"
+  },
+  {
+    "key": "jsfiddle",
+    "url": "https://jsfiddle.net",
+    "category": "coding"
+  },
+  {
+    "key": "stack",
+    "url": "https://stackoverflow.com",
+    "category": "coding"
+  },
+  {
+    "key": "mdn",
+    "url": "https://developer.mozilla.org/en-US/",
+    "category": "coding"
+  },
+  {
+    "key": "w3schools",
+    "url": "https://www.w3schools.com",
+    "category": "coding"
+  },
+  {
+    "key": "freecodecamp",
+    "url": "https://www.freecodecamp.org",
+    "category": "coding"
+  },
+  {
+    "key": "nptel",
+    "url": "https://nptel.ac.in",
+    "category": "study"
+  },
+  {
+    "key": "coursera",
+    "url": "https://www.coursera.org",
+    "category": "study"
+  },
+  {
+    "key": "edx",
+    "url": "https://www.edx.org",
+    "category": "study"
+  },
+  {
+    "key": "khanacademy",
+    "url": "https://www.khanacademy.org",
+    "category": "study"
+  },
+  {
+    "key": "udemy",
+    "url": "https://www.udemy.com",
+    "category": "study"
+  },
+  {
+    "key": "quizlet",
+    "url": "https://quizlet.com",
+    "category": "study"
+  },
+  {
+    "key": "wolfram",
+    "url": "https://www.wolframalpha.com/",
+    "category": "study"
+  },
+  {
+    "key": "grammarly",
+    "url": "https://www.grammarly.com",
+    "category": "study"
+  },
+  {
+    "key": "scholar",
+    "url": "https://scholar.google.com",
+    "category": "study"
+  },
+  {
+    "key": "chatgpt",
+    "url": "https://chat.openai.com",
+    "category": "ai"
+  },
+  {
+    "key": "gemini",
+    "url": "https://gemini.google.com/",
+    "category": "ai"
+  },
+  {
+    "key": "deepseek",
+    "url": "https://www.deepseek.com",
+    "category": "ai"
+  },
+  {
+    "key": "youtube",
+    "url": "https://www.youtube.com",
+    "category": "media"
+  },
+  {
+    "key": "spotify",
+    "url": "https://open.spotify.com",
+    "category": "media"
+  },
+  {
+    "key": "netflix",
+    "url": "https://www.netflix.com",
+    "category": "media"
+  },
+  {
+    "key": "linkedin",
+    "url": "https://www.linkedin.com",
+    "category": "social"
+  },
+  {
+    "key": "twitter",
+    "url": "https://twitter.com",
+    "category": "social"
+  },
+  {
+    "key": "reddit",
+    "url": "https://www.reddit.com",
+    "category": "social"
+  },
+  {
+    "key": "medium",
+    "url": "https://medium.com",
+    "category": "social"
+  },
+  {
+    "key": "amazon",
+    "url": "https://www.amazon.com",
+    "category": "commerce"
+  },
+  {
+    "key": "flipkart",
+    "url": "https://www.flipkart.com",
+    "category": "commerce"
+  },
+  {
+    "key": "ebay",
+    "url": "https://www.ebay.com",
+    "category": "commerce"
+  },
+  {
+    "key": "mint",
+    "url": "https://www.mint.com",
+    "category": "finance"
+  },
+  {
+    "key": "webmd",
+    "url": "https://www.webmd.com",
+    "category": "health"
+  }
+]
