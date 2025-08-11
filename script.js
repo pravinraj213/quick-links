@@ -113,10 +113,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (direction === 'down') {
             if (selectedSearchEngineIndex === -1) {
                 selectedSearchEngineIndex = 0;
+            } else {
+                selectedSearchEngineIndex = (selectedSearchEngineIndex + 1) % searchEngineButtons.length;
             }
-        } else if (direction === 'right') {
-            selectedSearchEngineIndex = (selectedSearchEngineIndex + 1) % searchEngineButtons.length;
-        } else if (direction === 'left') {
+        } else if (direction === 'up') {
             selectedSearchEngineIndex = (selectedSearchEngineIndex - 1 + searchEngineButtons.length) % searchEngineButtons.length;
         }
 
@@ -129,28 +129,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
     
-    // Updated function to validate URL
+    // Updated function to validate URL without a protocol, but more strictly
     const isValidUrl = (string) => {
-        try {
-            const url = string.startsWith('http') ? string : `https://${string}`;
-            new URL(url);
-            return true;
-        } catch (_) {
-            return false;  
+        // A simple check that ensures the string contains at least one dot
+        if (string.includes('.')) {
+            try {
+                const url = string.startsWith('http') ? string : `https://${string}`;
+                new URL(url);
+                return true;
+            } catch (_) {
+                return false;  
+            }
         }
+        return false;
     };
 
     const goToSelectedLink = () => {
-        const query = searchInput.value.trim();
+        const query = searchInput.value.trim().toLowerCase();
         const selectedItem = document.querySelector('.suggestions li.selected');
-        
-        if (isValidUrl(query)) {
-            const url = query.startsWith('http') ? query : `https://${query}`;
-            window.open(url, '_blank');
-        } else if (selectedItem) {
+
+        if (selectedItem) {
             window.open(selectedItem.dataset.url, '_blank');
         } else if (suggestionsList.querySelector('li')) {
             window.open(suggestionsList.querySelector('li').dataset.url, '_blank');
+        } else if (isValidUrl(query)) {
+            const url = query.startsWith('http') ? query : `https://${query}`;
+            window.open(url, '_blank');
         } else if (noResultsMessage.style.display === 'block' && selectedSearchEngineIndex !== -1) {
             const selectedButton = searchEngineButtons[selectedSearchEngineIndex];
             const url = selectedButton.dataset.searchUrl + encodeURIComponent(query);
@@ -181,15 +185,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 navigateSuggestions('up');
             }
         } else if (noResultsMessage.style.display === 'block') {
-            if (e.key === 'ArrowDown') {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
                 e.preventDefault();
-                navigateSearchEngines('down');
-            } else if (e.key === 'ArrowRight') {
-                e.preventDefault();
-                navigateSearchEngines('right');
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                navigateSearchEngines('left');
+                if (e.key === 'ArrowDown' && e.shiftKey) {
+                    navigateSearchEngines('up');
+                } else if (e.key === 'ArrowDown') {
+                    navigateSearchEngines('down');
+                } else if (e.key === 'ArrowRight') {
+                    navigateSearchEngines('right');
+                } else if (e.key === 'ArrowLeft') {
+                    navigateSearchEngines('left');
+                }
             }
         }
         
@@ -205,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterSuggestions('');
             searchInput.blur();
         }
-        // Change the shortcut key for focusing the search bar
+        // Use only Ctrl/Cmd + K for focusing the search bar to avoid conflicts with typing
         if ((e.key === 'k' && (e.metaKey || e.ctrlKey))) {
             e.preventDefault();
             searchInput.focus();
