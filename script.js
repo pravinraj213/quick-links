@@ -58,6 +58,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const getFaviconUrl = (link) => {
+        if (link.favicon) {
+            return link.favicon;
+        }
+        try {
+            const domain = new URL(link.url).hostname;
+            // Using a reliable, high-resolution favicon service
+            return `https://s2.googleusercontent.com/s2/favicons?domain_url=${domain}&sz=128`;
+        } catch {
+            return null;
+        }
+    };
+
     const filterSuggestions = (query) => {
         suggestionsList.innerHTML = '';
         selectedIndex = -1;
@@ -80,8 +93,37 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             filteredLinks.forEach(link => {
                 const li = document.createElement('li');
-                li.innerHTML = `<strong>${link.key}</strong> <span>(${link.category})</span>`;
                 li.dataset.url = link.url;
+                
+                const faviconUrl = getFaviconUrl(link);
+                const iconElement = document.createElement('img');
+                
+                iconElement.onload = function() {
+                    if (this.naturalWidth > 16 || this.naturalHeight > 16) {
+                         iconElement.classList.add('favicon-image');
+                         li.prepend(iconElement);
+                    } else {
+                         const placeholder = document.createElement('div');
+                         placeholder.classList.add('placeholder-icon');
+                         li.prepend(placeholder);
+                    }
+                };
+                iconElement.onerror = function() {
+                    const placeholder = document.createElement('div');
+                    placeholder.classList.add('placeholder-icon');
+                    li.prepend(placeholder);
+                };
+                iconElement.src = faviconUrl;
+                iconElement.alt = `${link.key} Favicon`;
+
+                const linkDetails = document.createElement('div');
+                linkDetails.classList.add('link-details');
+                linkDetails.innerHTML = `
+                    <strong>${link.key}</strong>
+                    <span>(${link.category})</span>
+                `;
+                
+                li.appendChild(linkDetails);
                 suggestionsList.appendChild(li);
             });
         }
@@ -110,28 +152,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const navigateSearchEngines = (direction) => {
         if (searchEngineButtons.length === 0) return;
         
-        if (direction === 'down') {
-            if (selectedSearchEngineIndex === -1) {
-                selectedSearchEngineIndex = 0;
-            } else {
-                selectedSearchEngineIndex = (selectedSearchEngineIndex + 1) % searchEngineButtons.length;
-            }
-        } else if (direction === 'up') {
-            selectedSearchEngineIndex = (selectedSearchEngineIndex - 1 + searchEngineButtons.length) % searchEngineButtons.length;
+        let newIndex = selectedSearchEngineIndex;
+        if (direction === 'right' || direction === 'down') {
+            newIndex = (newIndex + 1) % searchEngineButtons.length;
+        } else if (direction === 'left' || direction === 'up') {
+            newIndex = (newIndex - 1 + searchEngineButtons.length) % searchEngineButtons.length;
         }
+        
+        selectedSearchEngineIndex = newIndex;
 
         searchEngineButtons.forEach((btn, index) => {
             if (index === selectedSearchEngineIndex) {
                 btn.classList.add('selected');
+                btn.focus();
             } else {
                 btn.classList.remove('selected');
             }
         });
     };
     
-    // Updated function to validate URL without a protocol, but more strictly
     const isValidUrl = (string) => {
-        // A simple check that ensures the string contains at least one dot
         if (string.includes('.')) {
             try {
                 const url = string.startsWith('http') ? string : `https://${string}`;
@@ -184,18 +224,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 navigateSuggestions('up');
             }
-        } else if (noResultsMessage.style.display === 'block') {
-            if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+        } else if (noResultsMessage.style.display === 'block' && searchEngineButtons.length > 0) {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
                 e.preventDefault();
-                if (e.key === 'ArrowDown' && e.shiftKey) {
-                    navigateSearchEngines('up');
-                } else if (e.key === 'ArrowDown') {
-                    navigateSearchEngines('down');
-                } else if (e.key === 'ArrowRight') {
-                    navigateSearchEngines('right');
-                } else if (e.key === 'ArrowLeft') {
-                    navigateSearchEngines('left');
-                }
+                searchEngineButtons[0].focus();
             }
         }
         
@@ -211,10 +243,47 @@ document.addEventListener('DOMContentLoaded', () => {
             filterSuggestions('');
             searchInput.blur();
         }
-        // Use only Ctrl/Cmd + K for focusing the search bar to avoid conflicts with typing
         if ((e.key === 'k' && (e.metaKey || e.ctrlKey))) {
             e.preventDefault();
             searchInput.focus();
+        }
+        
+        // Toggle help panel
+        if ((e.key === '/' && (e.metaKey || e.ctrlKey))) {
+            e.preventDefault();
+            const shortcutsHeader = document.querySelector('[data-target="shortcuts"]');
+            shortcutsHeader.click();
+        }
+        
+        // Focus feedback form
+        if ((e.key === 'f' && (e.metaKey || e.ctrlKey))) {
+            e.preventDefault();
+            const feedbackName = document.getElementById('feedback-name');
+            if (feedbackName) feedbackName.focus();
+        }
+        
+        // Focus suggestion form
+        if ((e.key === 's' && (e.metaKey || e.ctrlKey))) {
+            e.preventDefault();
+            const suggestName = document.getElementById('suggest-name');
+            if (suggestName) suggestName.focus();
+        }
+        
+        // Tab navigation for category buttons
+        if (e.key === 'Tab' && (document.activeElement === searchInput || categoryButtons.contains(document.activeElement))) {
+            e.preventDefault();
+            const buttons = Array.from(document.querySelectorAll('.category-btn'));
+            const currentIndex = buttons.indexOf(document.activeElement);
+            
+            if (e.shiftKey) {
+                // Shift+Tab - move backward
+                const prevIndex = (currentIndex - 1 + buttons.length) % buttons.length;
+                buttons[prevIndex].focus();
+            } else {
+                // Tab - move forward
+                const nextIndex = (currentIndex + 1) % buttons.length;
+                buttons[nextIndex].focus();
+            }
         }
     });
 
@@ -243,9 +312,17 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('blur', () => {
             button.classList.remove('selected');
         });
+        button.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowUp' || e.key === 'ArrowDown' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                navigateSearchEngines(e.key.replace('Arrow', '').toLowerCase());
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                goToSelectedLink();
+            }
+        });
     });
 
-    // Automatically fill the URL form with 'https://'
     if (suggestUrlInput) {
         suggestUrlInput.addEventListener('focus', () => {
             if (suggestUrlInput.value === '') {

@@ -21,16 +21,16 @@
         <div id="no-results" class="no-results-message" style="display: none;">
             <p>No results found for your query.</p>
             <p>Press <span class="highlight">Enter</span> to continue with Google.</p>
-            <div class="search-engines">
+            <div class="search-engines" role="group" aria-label="Search engines">
                 <a href="#" id="google-search" class="search-engine-btn" data-search-url="https://www.google.com/search?q="><img src="https://www.google.com/favicon.ico" alt="Google Logo"> Google</a>
                 <a href="#" id="duckduckgo-search" class="search-engine-btn" data-search-url="https://duckduckgo.com/?q="><img src="https://duckduckgo.com/favicon.ico" alt="DuckDuckGo Logo"> DuckDuckGo</a>
-                <a href="#" id="brave-search" class="search-engine-btn" data-search-url="https://search.brave.com/search?q="><img src="https://brave.com/favicon.ico" alt="Brave Logo"> Brave</a>
+                <a href="#" id="brave-search" class="search-engine-btn" data-search-url="https://search.brave.com/search?q="><img src="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave Logo"> Brave</a>
                 <a href="#" id="bing-search" class="search-engine-btn" data-search-url="https://www.bing.com/search?q="><img src="https://www.bing.com/favicon.ico" alt="Bing Logo"> Bing</a>
-                <a href="#" id="Youtube" class="search-engine-btn" data-search-url="https://www.youtube.com/results?search_query="><img src="https://www.youtube.com/favicon.ico" alt="YouTube Logo"> YouTube</a>
+                <a href="#" id="youtube" class="search-engine-btn" data-search-url="https://www.youtube.com/results?search_query="><img src="https://www.youtube.com/favicon.ico" alt="YouTube Logo"> YouTube</a>
             </div>
         </div>
 
-        <div class="category-buttons" id="category-buttons">
+        <div class="category-buttons" id="category-buttons" role="group" aria-label="Categories" tabindex="0">
             </div>
     </main>
 
@@ -49,10 +49,17 @@
             <h2 class="collapsible-header" data-target="shortcuts">Shortcut Keys</h2>
             <div class="collapsible-content" id="shortcuts">
                 <ul>
-                    <li><strong>Cmd/Ctrl + K</strong>: Focus the search bar.</li>
-                    <li><strong>⬆ / ⬇</strong>: Navigate through suggestions.</li>
-                    <li><strong>Enter</strong>: Open selected link in a new tab.</li>
-                    <li><strong>Esc</strong>: Clear the search bar and suggestions.</li>
+                    <li><strong>Cmd/Ctrl + K</strong>: Focus the search bar</li>
+                    <li><strong>Tab</strong>: Cycle through category buttons</li>
+                    <li><strong>Shift + Tab</strong>: Cycle backwards through category buttons</li>
+                    <li><strong>Enter</strong>: Activate selected category button or open selected link</li>
+                    <li><strong>⬆ / ⬇</strong>: Navigate through suggestions</li>
+                    <li><strong>⬅ / ➡</strong>: Navigate through search engine buttons (when no results)</li>
+                    <li><strong>Enter</strong>: Open selected link/search in selected engine</li>
+                    <li><strong>Esc</strong>: Clear search and suggestions</li>
+                    <li><strong>Cmd/Ctrl + /</strong>: Toggle this help panel</li>
+                    <li><strong>Cmd/Ctrl + F</strong>: Focus feedback form</li>
+                    <li><strong>Cmd/Ctrl + S</strong>: Focus suggestion form</li>
                 </ul>
             </div>
         </div>
@@ -94,7 +101,7 @@
     </section>
 
     <footer class="footer">
-        <p>&copy; 2025 Quick Links. All rights reserved.</p>
+        <p>© 2025 Quick Links. All rights reserved.</p>
     </footer>
 
     <script src="script.js"></script>
