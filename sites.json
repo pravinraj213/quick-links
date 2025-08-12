@@ -115,6 +115,16 @@
     "category": "study"
   },
   {
+    "key": "digii campus",
+    "url": "https://rajalakshmi.digiicampus.com",
+    "category": "study"
+  },
+  {
+    "key": "neo",
+    "url": "https://rec215.examly.io",
+    "category": "study"
+  },
+  {
     "key": "coursera",
     "url": "https://www.coursera.org",
     "category": "study"
@@ -189,6 +199,11 @@
     "url": "https://www.linkedin.com",
     "category": "social"
   },
+    {
+    "key": "linkedin learning",
+    "url": "https://www.linkedin.com/learning",
+    "category": "study"
+  },
   {
     "key": "twitter",
     "url": "https://twitter.com",
@@ -206,7 +221,7 @@
   },
   {
     "key": "amazon",
-    "url": "https://www.amazon.com",
+    "url": "https://www.amazon.in",
     "category": "commerce"
   },
   {
