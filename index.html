@@ -8,14 +8,19 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <main class="container">
+    <div id="loading-overlay" class="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <main id="main-content" class="container" tabindex="-1">
         <h1 class="main-title">Quick Links</h1>
         <p class="tagline">Your ultra-fast keyword redirect for academic and productivity sites.</p>
 
         <div class="search-section">
-            <input type="text" id="search" placeholder="Type a keyword..." autocomplete="off">
-            <ul id="suggestions" class="suggestions"></ul>
+            <input type="text" id="search" placeholder="Type a keyword..." autocomplete="off" aria-label="Search websites">
+            <ul id="suggestions" class="suggestions" aria-label="Search suggestions"></ul>
         </div>
         
         <div id="no-results" class="no-results-message" style="display: none;">
@@ -24,18 +29,95 @@
             <div class="search-engines" role="group" aria-label="Search engines">
                 <a href="#" id="google-search" class="search-engine-btn" data-search-url="https://www.google.com/search?q="><img src="https://www.google.com/favicon.ico" alt="Google Logo"> Google</a>
                 <a href="#" id="duckduckgo-search" class="search-engine-btn" data-search-url="https://duckduckgo.com/?q="><img src="https://duckduckgo.com/favicon.ico" alt="DuckDuckGo Logo"> DuckDuckGo</a>
-                <a href="#" id="brave-search" class="search-engine-btn" data-search-url="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave Logo"> Brave</a>
+                <a href="#" id="brave-search" class="search-engine-btn" data-search-url="https://search.brave.com/search?q="><img src="https://brave.com/static-assets/images/brave-favicon.png" alt="Brave Logo"> Brave</a>
                 <a href="#" id="bing-search" class="search-engine-btn" data-search-url="https://www.bing.com/search?q="><img src="https://www.bing.com/favicon.ico" alt="Bing Logo"> Bing</a>
-                <a href="#" id="youtube" class="search-engine-btn" data-search-url="https://www.youtube.com/results?search_query="><img src="https://www.youtube.com/favicon.ico" alt="YouTube Logo"> YouTube</a>
+                <a href="#" id="youtube-search" class="search-engine-btn" data-search-url="https://www.youtube.com/results?search_query="><img src="https://www.youtube.com/favicon.ico" alt="YouTube Logo"> YouTube</a>
             </div>
         </div>
 
         <div class="category-buttons" id="category-buttons" role="group" aria-label="Categories" tabindex="0">
+            <!-- Categories will be populated by JavaScript -->
+        </div>
+
+        <div class="info-sections">
+            <div class="info-card">
+                <h2 class="collapsible-header" data-target="shortcuts" tabindex="0" role="button" aria-expanded="false">
+                    Keyboard Shortcuts
+                </h2>
+                <div id="shortcuts" class="collapsible-content">
+                    <ul>
+                        <li><kbd>Ctrl+K</kbd> or <kbd>Cmd+K</kbd> - Focus search</li>
+                        <li><kbd>↑</kbd> <kbd>↓</kbd> - Navigate suggestions</li>
+                        <li><kbd>Enter</kbd> - Open selected link</li>
+                        <li><kbd>Esc</kbd> - Clear search</li>
+                        <li><kbd>Tab</kbd> - Navigate categories</li>
+                        <li><kbd>Ctrl+/</kbd> or <kbd>Cmd+/</kbd> - Toggle shortcuts panel</li>
+                    </ul>
+                </div>
             </div>
+
+            <div class="info-card">
+                <h2 class="collapsible-header" data-target="feedback" tabindex="0" role="button" aria-expanded="false">
+                    Feedback
+                </h2>
+                <div id="feedback" class="collapsible-content">
+                    <form class="feedback-form">
+                        <label for="feedback-name">Name (optional)</label>
+                        <input type="text" id="feedback-name" placeholder="Your name">
+                        
+                        <label for="feedback-email">Email (optional)</label>
+                        <input type="email" id="feedback-email" placeholder="Your email">
+                        
+                        <label for="feedback-message">Message</label>
+                        <textarea id="feedback-message" placeholder="Your feedback" rows="4" required></textarea>
+                        
+                        <button type="submit" class="submit-btn">Send Feedback</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h2 class="collapsible-header" data-target="suggest" tabindex="0" role="button" aria-expanded="false">
+                    Suggest a Site
+                </h2>
+                <div id="suggest" class="collapsible-content">
+                    <form class="suggestion-form">
+                        <label for="suggest-name">Site Name</label>
+                        <input type="text" id="suggest-name" placeholder="e.g., Google Drive" required>
+                        
+                        <label for="suggest-url">URL</label>
+                        <input type="url" id="suggest-url" placeholder="https://drive.google.com" required>
+                        
+                        <label for="suggest-category">Category</label>
+                        <select id="suggest-category" required>
+                            <option value="">Select a category</option>
+                            <option value="tools">Tools</option>
+                            <option value="study">Study</option>
+                            <option value="coding">Coding</option>
+                            <option value="ai">AI</option>
+                            <option value="media">Media</option>
+                            <option value="social">Social</option>
+                            <option value="commerce">Commerce</option>
+                            <option value="finance">Finance</option>
+                            <option value="health">Health</option>
+                        </select>
+                        
+                        <button type="submit" class="submit-btn">Submit Suggestion</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="footer">
         <p>© 2025 Quick Links. All rights reserved.</p>
+        <button id="settings-btn" class="settings-btn" aria-label="Settings">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M19.4 15C19.2669 15.3 19.2 15.6 19.2 16C19.2 16.4 19.3 16.7 19.4 17C19.5 17.3 19.7331 17.5 20 17.7C20.2669 17.9 20.6 18 21 18C21.4 18 21.7331 17.9 22 17.7C22.2669 17.5 22.5 17.3 22.6 17C22.8331 16.7 22.9 16.4 22.9 16C22.9 15.6 22.8 15.3 22.6 15C22.4 14.7 22.1669 14.5 21.9 14.3C21.6331 14.1 21.3 14 20.9 14C20.5 14 20.1669 14.1 19.9 14.3C19.6331 14.5 19.5 14.7 19.4 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M1.4 15C1.26687 15.3 1.2 15.6 1.2 16C1.2 16.4 1.3 16.7 1.4 17C1.5 17.3 1.73313 17.5 2 17.7C2.26687 17.9 2.6 18 3 18C3.4 18 3.73313 17.9 4 17.7C4.26687 17.5 4.5 17.3 4.6 17C4.83313 16.7 4.9 16.4 4.9 16C4.9 15.6 4.8 15.3 4.6 15C4.4 14.7 4.16687 14.5 3.9 14.3C3.63313 14.1 3.3 14 2.9 14C2.5 14 2.16687 14.1 1.9 14.3C1.63313 14.5 1.5 14.7 1.4 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
     </footer>
 
     <script src="script.js"></script>

@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsMessage = document.getElementById('no-results');
     const searchEngineButtons = document.querySelectorAll('.search-engine-btn');
     const suggestUrlInput = document.getElementById('suggest-url');
+    const settingsBtn = document.getElementById('settings-btn');
+    const loadingOverlay = document.getElementById('loading-overlay');
 
     let links = [];
     let currentCategory = 'all';
@@ -15,19 +17,48 @@ document.addEventListener('DOMContentLoaded', () => {
     let selectedSearchEngineIndex = -1;
     let debounceTimeout;
 
+    // Show loading overlay initially
+    if (loadingOverlay) {
+        loadingOverlay.style.display = 'flex';
+    }
+
     // Fetch the data from sites.json
     fetch('sites.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             links = data;
             initializeSite();
+            // Hide loading overlay
+            if (loadingOverlay) {
+                setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 300);
+                }, 500);
+            }
         })
-        .catch(error => console.error('Error fetching data:', error));
+        .catch(error => {
+            console.error('Error fetching data:', error);
+            showErrorMessage('Failed to load sites. Please refresh the page.');
+            // Hide loading overlay even on error
+            if (loadingOverlay) {
+                loadingOverlay.style.display = 'none';
+            }
+        });
 
     const initializeSite = () => {
         const allCategories = ['all', ...new Set(links.map(item => item.category))];
         createCategoryButtons(allCategories);
         searchInput.focus();
+        
+        // Load user preferences from localStorage if available
+        loadUserPreferences();
     };
 
     const createCategoryButtons = (categories) => {
@@ -55,6 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
             currentCategory = e.target.dataset.category;
             filterSuggestions(searchInput.value);
             searchInput.focus();
+            
+            // Save category preference
+            saveUserPreference('lastCategory', currentCategory);
         }
     });
 
@@ -94,6 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
             filteredLinks.forEach(link => {
                 const li = document.createElement('li');
                 li.dataset.url = link.url;
+                li.tabIndex = 0;
+                li.setAttribute('role', 'option');
+                li.setAttribute('aria-selected', 'false');
                 
                 const faviconUrl = getFaviconUrl(link);
                 const iconElement = document.createElement('img');
@@ -142,9 +179,11 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach((item, index) => {
             if (index === selectedIndex) {
                 item.classList.add('selected');
+                item.setAttribute('aria-selected', 'true');
                 item.scrollIntoView({ block: 'nearest' });
             } else {
                 item.classList.remove('selected');
+                item.setAttribute('aria-selected', 'false');
             }
         });
     };
@@ -212,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(debounceTimeout);
         debounceTimeout = setTimeout(() => {
             filterSuggestions(searchInput.value);
-        }, 15);
+        }, 150); // Increased from 15ms to 150ms for better performance
     });
 
     searchInput.addEventListener('keydown', (e) => {
@@ -297,6 +336,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    suggestionsList.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const li = e.target.closest('li');
+            if (li) {
+                window.open(li.dataset.url, '_blank');
+                searchInput.value = '';
+                filterSuggestions('');
+                searchInput.focus();
+            }
+        }
+    });
+
     searchEngineButtons.forEach((button, index) => {
         button.addEventListener('click', (e) => {
             e.preventDefault();
@@ -334,7 +385,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (suggestionForm) {
         suggestionForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert("Your suggestion has been noted. We will update the list soon!");
+            showSuccessMessage("Your suggestion has been noted. We will update the list soon!");
             suggestionForm.reset();
         });
     }
@@ -342,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (feedbackForm) {
         feedbackForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            alert("Thank you for your feedback!");
+            showSuccessMessage("Thank you for your feedback!");
             feedbackForm.reset();
         });
     }
@@ -351,15 +402,82 @@ document.addEventListener('DOMContentLoaded', () => {
         header.addEventListener('click', () => {
             const content = document.getElementById(header.dataset.target);
             if (content) {
+                const isExpanding = !header.classList.contains('active');
+                
                 document.querySelectorAll('.collapsible-header.active').forEach(activeHeader => {
                     if (activeHeader !== header) {
                         activeHeader.classList.remove('active');
+                        activeHeader.setAttribute('aria-expanded', 'false');
                         document.getElementById(activeHeader.dataset.target).classList.remove('visible');
                     }
                 });
+                
                 header.classList.toggle('active');
+                header.setAttribute('aria-expanded', isExpanding ? 'true' : 'false');
                 content.classList.toggle('visible');
             }
         });
+        
+        header.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                header.click();
+            }
+        });
     });
+
+    if (settingsBtn) {
+        settingsBtn.addEventListener('click', () => {
+            alert('Settings panel will be implemented in a future version!');
+        });
+    }
+
+    // Utility functions
+    function showErrorMessage(message) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message';
+        errorDiv.textContent = message;
+        document.body.appendChild(errorDiv);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 5000);
+    }
+
+    function showSuccessMessage(message) {
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.textContent = message;
+        document.body.appendChild(successDiv);
+        
+        // Remove after 5 seconds
+        setTimeout(() => {
+            successDiv.remove();
+        }, 5000);
+    }
+
+    function saveUserPreference(key, value) {
+        try {
+            localStorage.setItem(`quicklinks_${key}`, value);
+        } catch (e) {
+            console.warn('Could not save preference to localStorage:', e);
+        }
+    }
+
+    function loadUserPreferences() {
+        try {
+            const lastCategory = localStorage.getItem('quicklinks_lastCategory');
+            if (lastCategory) {
+                const categoryButton = document.querySelector(`.category-btn[data-category="${lastCategory}"]`);
+                if (categoryButton) {
+                    document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+                    categoryButton.classList.add('active');
+                    currentCategory = lastCategory;
+                }
+            }
+        } catch (e) {
+            console.warn('Could not load preferences from localStorage:', e);
+        }
+    }
 });
