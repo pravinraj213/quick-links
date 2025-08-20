@@ -40,6 +40,21 @@
     "category": "tools"
   },
   {
+    "key": "oracle APEX",
+    "url": "https://apex.oracle.com",
+    "category": "tools"
+  },
+  {
+    "key": "flaticon",
+    "url": "https://www.flaticon.com/",
+    "category": "tools"
+  },
+  {
+    "key": "gcr",
+    "url": "https://classroom.google.com",
+    "category": "study"
+  },
+  {
     "key": "trello",
     "url": "https://trello.com",
     "category": "tools"
@@ -112,6 +127,11 @@
   {
     "key": "nptel",
     "url": "https://nptel.ac.in",
+    "category": "study"
+  },
+  {
+    "key": "sih",
+    "url": "https://www.sih.gov.in/",
     "category": "study"
   },
   {
