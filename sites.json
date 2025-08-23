@@ -268,5 +268,185 @@
     "key": "webmd",
     "url": "https://www.webmd.com",
     "category": "health"
+  },
+  {
+    "key": "slack",
+    "url": "https://slack.com",
+    "category": "productivity"
+  },
+  {
+    "key": "clickup",
+    "url": "https://clickup.com",
+    "category": "productivity"
+  },
+  {
+    "key": "asana",
+    "url": "https://asana.com",
+    "category": "productivity"
+  },
+  {
+    "key": "monday.com",
+    "url": "https://monday.com",
+    "category": "productivity"
+  },
+  {
+    "key": "airtable",
+    "url": "https://airtable.com",
+    "category": "productivity"
+  },
+  {
+    "key": "coda",
+    "url": "https://coda.io",
+    "category": "productivity"
+  },
+  {
+    "key": "zoho projects",
+    "url": "https://www.zoho.com/projects",
+    "category": "productivity"
+  },
+  {
+    "key": "replit",
+    "url": "https://replit.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "lovable",
+    "url": "https://lovable.dev",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "glitch",
+    "url": "https://glitch.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "codesandbox",
+    "url": "https://codesandbox.io",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "firebase",
+    "url": "https://firebase.google.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "firebase console",
+    "url": "https://console.firebase.google.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "supabase",
+    "url": "https://supabase.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "render",
+    "url": "https://render.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "railway",
+    "url": "https://railway.app",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "vercel",
+    "url": "https://vercel.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "netlify",
+    "url": "https://www.netlify.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "heroku",
+    "url": "https://www.heroku.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "aws",
+    "url": "https://aws.amazon.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "azure",
+    "url": "https://azure.microsoft.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "google cloud",
+    "url": "https://cloud.google.com",
+    "category": "dev_platforms"
+  },
+  {
+    "key": "postman",
+    "url": "https://www.postman.com",
+    "category": "data_apis"
+  },
+  {
+    "key": "swagger",
+    "url": "https://swagger.io",
+    "category": "data_apis"
+  },
+  {
+    "key": "apify",
+    "url": "https://apify.com",
+    "category": "data_apis"
+  },
+  {
+    "key": "kaggle",
+    "url": "https://www.kaggle.com",
+    "category": "data_apis"
+  },
+  {
+    "key": "bigquery",
+    "url": "https://cloud.google.com/bigquery",
+    "category": "data_apis"
+  },
+  {
+    "key": "adobe creative cloud",
+    "url": "https://www.adobe.com/creativecloud.html",
+    "category": "design"
+  },
+  {
+    "key": "blender",
+    "url": "https://www.blender.org",
+    "category": "design"
+  },
+  {
+    "key": "krita",
+    "url": "https://krita.org",
+    "category": "design"
+  },
+  {
+    "key": "photopea",
+    "url": "https://www.photopea.com",
+    "category": "design"
+  },
+  {
+    "key": "zapier",
+    "url": "https://zapier.com",
+    "category": "ai_automation"
+  },
+  {
+    "key": "ifttt",
+    "url": "https://ifttt.com",
+    "category": "ai_automation"
+  },
+  {
+    "key": "hugging face",
+    "url": "https://huggingface.co",
+    "category": "ai_automation"
+  },
+  {
+    "key": "cohere",
+    "url": "https://cohere.com",
+    "category": "ai_automation"
+  },
+  {
+    "key": "anthropic",
+    "url": "https://claude.ai",
+    "category": "ai_automation"
   }
 ]
