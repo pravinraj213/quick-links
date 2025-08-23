@@ -307,102 +307,102 @@
   {
     "key": "replit",
     "url": "https://replit.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "lovable",
     "url": "https://lovable.dev",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "glitch",
     "url": "https://glitch.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "codesandbox",
     "url": "https://codesandbox.io",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "firebase",
     "url": "https://firebase.google.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "firebase console",
     "url": "https://console.firebase.google.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "supabase",
     "url": "https://supabase.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "render",
     "url": "https://render.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "railway",
     "url": "https://railway.app",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "vercel",
     "url": "https://vercel.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "netlify",
     "url": "https://www.netlify.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "heroku",
     "url": "https://www.heroku.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "aws",
     "url": "https://aws.amazon.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "azure",
     "url": "https://azure.microsoft.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "google cloud",
     "url": "https://cloud.google.com",
-    "category": "dev_platforms"
+    "category": "dev"
   },
   {
     "key": "postman",
     "url": "https://www.postman.com",
-    "category": "data_apis"
+    "category": "data"
   },
   {
     "key": "swagger",
     "url": "https://swagger.io",
-    "category": "data_apis"
+    "category": "data"
   },
   {
     "key": "apify",
     "url": "https://apify.com",
-    "category": "data_apis"
+    "category": "data"
   },
   {
     "key": "kaggle",
     "url": "https://www.kaggle.com",
-    "category": "data_apis"
+    "category": "data"
   },
   {
     "key": "bigquery",
     "url": "https://cloud.google.com/bigquery",
-    "category": "data_apis"
+    "category": "data"
   },
   {
     "key": "adobe creative cloud",
@@ -427,26 +427,26 @@
   {
     "key": "zapier",
     "url": "https://zapier.com",
-    "category": "ai_automation"
+    "category": "automation"
   },
   {
     "key": "ifttt",
     "url": "https://ifttt.com",
-    "category": "ai_automation"
+    "category": "automation"
   },
   {
     "key": "hugging face",
     "url": "https://huggingface.co",
-    "category": "ai_automation"
+    "category": "automation"
   },
   {
     "key": "cohere",
     "url": "https://cohere.com",
-    "category": "ai_automation"
+    "category": "automation"
   },
   {
     "key": "anthropic",
     "url": "https://claude.ai",
-    "category": "ai_automation"
+    "category": "automation"
   }
 ]
